@@ -1,5 +1,12 @@
 package tenniskata
 
+var tennisScore = map[int]string {
+    0: "Love",
+    1: "Fifteen",
+    2: "Thirty",
+    3: "Forty",
+}
+
 type tennisGame1 struct {
 	scores      map[string]int
 	player1Name string
@@ -22,9 +29,33 @@ func (game *tennisGame1) WonPoint(playerName string) {
 	game.scores[playerName] += 1
 }
 
-func (game *tennisGame1) GetScore() string {
+func (game *tennisGame1) differentScores() string {
+
 	score := ""
 	tempScore := 0
+		for i := 1; i < 3; i++ {
+			if i == 1 {
+				tempScore = game.scores[game.player1Name]
+			} else {
+				score += "-"
+				tempScore = game.scores[game.player2Name]
+			}
+			switch tempScore {
+			case 0:
+				score += "Love"
+			case 1:
+				score += "Fifteen"
+			case 2:
+				score += "Thirty"
+			case 3:
+				score += "Forty"
+			}
+		}
+		return score
+}
+
+func (game *tennisGame1) GetScore() string {
+	score := ""
 	if game.scores[game.player1Name] == game.scores[game.player2Name] {
 		switch game.scores[game.player1Name] {
 		case 0:
@@ -48,24 +79,7 @@ func (game *tennisGame1) GetScore() string {
 			score = "Win for player2"
 		}
 	} else {
-		for i := 1; i < 3; i++ {
-			if i == 1 {
-				tempScore = game.scores[game.player1Name]
-			} else {
-				score += "-"
-				tempScore = game.scores[game.player2Name]
-			}
-			switch tempScore {
-			case 0:
-				score += "Love"
-			case 1:
-				score += "Fifteen"
-			case 2:
-				score += "Thirty"
-			case 3:
-				score += "Forty"
-			}
-		}
+        score =  game.differentScores()
 	}
 	return score
 }
