@@ -30,28 +30,7 @@ func (game *tennisGame1) WonPoint(playerName string) {
 }
 
 func (game *tennisGame1) differentScores() string {
-
-	score := ""
-	tempScore := 0
-		for i := 1; i < 3; i++ {
-			if i == 1 {
-				tempScore = game.scores[game.player1Name]
-			} else {
-				score += "-"
-				tempScore = game.scores[game.player2Name]
-			}
-			switch tempScore {
-			case 0:
-				score += "Love"
-			case 1:
-				score += "Fifteen"
-			case 2:
-				score += "Thirty"
-			case 3:
-				score += "Forty"
-			}
-		}
-		return score
+    return tennisScore[game.scores[game.player1Name]] + "-"  + tennisScore[game.scores[game.player2Name]] 
 }
 
 func (game *tennisGame1) GetScore() string {
